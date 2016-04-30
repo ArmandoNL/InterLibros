@@ -1,0 +1,10 @@
+{
+  "AppSettings": {
+    "SiteTitle": "Interlibros"
+  },
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=aspnet5-Interlibros-c7e8590b-52aa-4eac-9cbe-b581df6fb99e;Trusted_Connection=True;MultipleActiveResultSets=true"
+    }
+  }
+}
