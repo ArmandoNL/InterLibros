@@ -31,6 +31,9 @@ namespace interlibros.Models
         public string Description { get; set; }
         public int Descuento { get; set; }
         public int Precio { get; set; }
+        public string NombreImagen { get; set; }
+        public string ContentType { get; set; }
+        public byte[] Imagen { get; set; }
     
         public virtual Libreria Libreria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

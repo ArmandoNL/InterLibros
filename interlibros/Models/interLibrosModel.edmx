@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="interlibrosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="interlibrosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administrador">
           <Key>
             <PropertyRef Name="idUsuario" />
@@ -58,6 +58,9 @@
           <Property Name="Description" Type="varchar" MaxLength="2048" Nullable="false" />
           <Property Name="Descuento" Type="int" Nullable="false" />
           <Property Name="Precio" Type="int" Nullable="false" />
+          <Property Name="NombreImagen" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="ContentType" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Imagen" Type="varbinary(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="LibrosEnCarro">
           <Key>
@@ -277,8 +280,7 @@
             <End Role="Transaccion" EntitySet="Transaccion" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="interlibrosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -331,6 +333,9 @@
           <NavigationProperty Name="LibroEnTransaccion" Relationship="Self.LibroEnTransaccion_fk1" FromRole="Libros" ToRole="LibroEnTransaccion" />
           <NavigationProperty Name="LibrosEnCarro" Relationship="Self.LibrosEnCarro_fk1" FromRole="Libros" ToRole="LibrosEnCarro" />
           <NavigationProperty Name="Categoria" Relationship="Self.CategoriaLibro" FromRole="Libros" ToRole="Categoria" />
+          <Property Name="NombreImagen" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="ContentType" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Imagen" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="LibrosEnCarro">
           <Key>
@@ -545,6 +550,9 @@
           <EntitySetMapping Name="Libros">
             <EntityTypeMapping TypeName="interlibrosModel.Libros">
               <MappingFragment StoreEntitySet="Libros">
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="NombreImagen" ColumnName="NombreImagen" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idLibreria" ColumnName="idLibreria" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
