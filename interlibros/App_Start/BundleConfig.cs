@@ -23,9 +23,21 @@ namespace interlibros
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/others").Include(
+                      "~/Scripts/jquery.scrollUp.min.js.js",
+                      "~/Scripts/price-range.js",
+                      "~/Scripts//jquery.prettyPhoto.js",
+                      "~/Scripts/main.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/font-awesome.css",
+                      "~/Content/prettyPhoto.css",
+                      "~/Content/price-range.css",
+                      "~/Content/animate.css",
+                      "~/Content/main.css",
+                      "~/Content/responsive.css"));
+
         }
     }
 }

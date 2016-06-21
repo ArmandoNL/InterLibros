@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Iniciar Sesión";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="form">
+    <!--form-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-1">
+                <div class="login-form">
+                    <!--login form-->
+                    <h2>Iniciar sesión</h2>
+                    <form action="#">
+                        <input type="text" placeholder="Nombre de usuario o correo" />
+                        <input type="password" placeholder="Contraseña" />
+                        <span>
+                            <input type="checkbox" class="checkbox">
+                            Dejar sesión abierta
+                        </span>
+                        <button type="submit" class="btn btn-default">Iniciar Sesión</button>
+                    </form>
+                </div><!--/login form-->
+            </div>
+            <div class="col-sm-1">
+                <h2 class="or">O</h2>
+            </div>
+            <div class="col-sm-4">
+                <div class="signup-form">
+                    <!--sign up form-->
+                    <h2>¡Regístrate en InterLibros!</h2>
+                    <form action="#">
+                        <input type="text" placeholder="Nombre" />
+                        <input type="text" placeholder="Nombre de usuario" />
+                        <input type="email" placeholder="Correo electrónico" />
+                        <input type="password" placeholder="Contraseña" />
+                        <input type="password" placeholder="Repetir contraseña" />
+                        <button type="submit" class="btn btn-default">Registrarse</button>
+                    </form>
+                </div><!--/sign up form-->
+            </div>
+        </div>
+    </div>
+</section><!--/form-->
+
+
