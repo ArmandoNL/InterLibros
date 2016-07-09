@@ -1,90 +1,149 @@
-﻿@model interlibros.Libros
+﻿@model interlibros.Models.Libros
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="row">
+    <div class="col-sm-12 padding-right">
+        <div class="product-details">
+            <!--product-details-->
+            <div class="col-sm-5">
+                <div class="view-product">
+                    <img src="@Html.DisplayFor(model => model.ImgUrl)" alt="" />
+                </div>
 
-<div>
-    <h4>Libros</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Titulo)
-        </dt>
+            </div>
+            <div class="col-sm-7">
+                <div class="product-information">
+                    <!--/product-information-->
+                    <h2>@Html.DisplayFor(model => model.Titulo)</h2>
+                    <p>Web ID: @Html.DisplayFor(model => model.id)</p>
+                    <span>
+                        <span>CRC ₡@Html.DisplayFor(model => model.Precio)</span>
+                        <label>Cantidad:</label>
+                        <input type="text" value="1" />
+                        <button type="button" class="btn btn-fefault cart">
+                            <i class="fa fa-shopping-cart"></i>
+                            Añadir al carro
+                        </button>
+                    </span>
+                    <p><b>Disponibilidad:</b> En inventario</p>
+                    <p><b>Condición:</b> @Html.DisplayFor(model => model.Condicion)/10</p>
+                    <p><b>Tienda:</b> @Html.DisplayFor(model => model.Librerias.Nombre)</p>
+                </div><!--/product-information-->
+            </div>
+        </div><!--/product-details-->
 
-        <dd>
-            @Html.DisplayFor(model => model.Titulo)
-        </dd>
+        <div class="category-tab shop-details-tab">
+            <!--category-tab-->
+            <div class="col-sm-12">
+                <ul class="nav nav-tabs">
+                    <li><a href="#details" data-toggle="tab">Detalles</a></li>
+                    <li><a href="#tag" data-toggle="tab">Categorías</a></li>
+                    <li class="active"><a href="#reviews" data-toggle="tab">Comentarios (5)</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade" id="details">
+                    <div class="col-sm-6">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <h3>Descripción</h3>
+                                    <p>@Html.DisplayFor(model => model.Descripcion)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <h3>Sobre el vendedor</h3>
+                                    <p><strong>Nombre:</strong> @Html.DisplayFor(model => model.Librerias.Nombre)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Autor)
-        </dt>
+                <div class="tab-pane fade" id="tag">
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="images/home/gallery1.jpg" alt="" />
+                                    <h2>$56</h2>
+                                    <p>Easy Polo Black Edition</p>
+                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="images/home/gallery2.jpg" alt="" />
+                                    <h2>$56</h2>
+                                    <p>Easy Polo Black Edition</p>
+                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="images/home/gallery3.jpg" alt="" />
+                                    <h2>$56</h2>
+                                    <p>Easy Polo Black Edition</p>
+                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <img src="images/home/gallery4.jpg" alt="" />
+                                    <h2>$56</h2>
+                                    <p>Easy Polo Black Edition</p>
+                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Autor)
-        </dd>
+                <div class="tab-pane fade active in" id="reviews">
+                    <div class="col-sm-12">
+                        <ul>
+                            <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
+                            <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
+                            <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
+                        </ul>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                        <p><b>Write Your Review</b></p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Idioma)
-        </dt>
+                        <form action="#">
+                            <span>
+                                <input type="text" placeholder="Your Name" />
+                                <input type="email" placeholder="Email Address" />
+                            </span>
+                            <textarea name=""></textarea>
+                            <button type="button" class="btn btn-default pull-right">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Idioma)
-        </dd>
+            </div>
+        </div><!--/category-tab-->
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Condicion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Condicion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cantidad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cantidad)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Descuento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Descuento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Libreria.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Libreria.Nombre)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

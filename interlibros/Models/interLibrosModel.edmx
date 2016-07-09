@@ -1,23 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="interlibrosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
-        <EntityType Name="Administrador">
+      <Schema Namespace="interlibrosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administradores">
           <Key>
             <PropertyRef Name="idUsuario" />
           </Key>
           <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="idLibreria" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Categoria">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="32" Nullable="false" />
         </EntityType>
         <EntityType Name="CategoriaLibro">
           <Key>
@@ -26,15 +19,30 @@
           <Property Name="idLibro" Type="int" Nullable="false" />
           <Property Name="idCategoria" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Libreria">
+        <EntityType Name="Categorias">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Librerias">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Telefono" Type="varchar" MaxLength="16" Nullable="false" />
           <Property Name="Direccion" Type="varchar" MaxLength="1024" Nullable="false" />
           <Property Name="Ubicacion" Type="varchar" MaxLength="1024" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LibroEnCarro">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idLibro" Type="int" Nullable="false" />
+          <Property Name="Cantidad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="LibroEnTransaccion">
           <Key>
@@ -48,42 +56,32 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idLibreria" Type="int" Nullable="false" />
           <Property Name="Titulo" Type="varchar" MaxLength="1024" Nullable="false" />
           <Property Name="Autor" Type="varchar" MaxLength="512" Nullable="false" />
           <Property Name="Idioma" Type="int" Nullable="false" />
           <Property Name="Condicion" Type="int" Nullable="false" />
           <Property Name="Cantidad" Type="int" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="2048" Nullable="false" />
           <Property Name="Descuento" Type="int" Nullable="false" />
           <Property Name="Precio" Type="int" Nullable="false" />
-          <Property Name="NombreImagen" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="ContentType" Type="varchar" MaxLength="128" Nullable="false" />
-          <Property Name="Imagen" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ImgUrl" Type="varchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="1024" />
         </EntityType>
-        <EntityType Name="LibrosEnCarro">
-          <Key>
-            <PropertyRef Name="idUsuario" />
-          </Key>
-          <Property Name="idUsuario" Type="int" Nullable="false" />
-          <Property Name="idLibro" Type="int" Nullable="false" />
-          <Property Name="Cantidad" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Transaccion">
+        <EntityType Name="Transacciones">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idUsuario" Type="int" Nullable="false" />
           <Property Name="idLibreria" Type="int" Nullable="false" />
           <Property Name="Fecha" Type="date" Nullable="false" />
         </EntityType>
-        <EntityType Name="Usuario">
+        <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreUsuario" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="Correo" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="Contrasena" Type="varchar" MaxLength="256" Nullable="false" />
@@ -94,25 +92,25 @@
           <Property Name="Genero" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
         <Association Name="Administrador_fk0">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Administrador" Type="Self.Administrador" Multiplicity="0..1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Usuario">
+            <Principal Role="Usuarios">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Administrador">
+            <Dependent Role="Administradores">
               <PropertyRef Name="idUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="Administrador_fk1">
-          <End Role="Libreria" Type="Self.Libreria" Multiplicity="1" />
-          <End Role="Administrador" Type="Self.Administrador" Multiplicity="*" />
+          <End Role="Librerias" Type="Self.Librerias" Multiplicity="1" />
+          <End Role="Administradores" Type="Self.Administradores" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Libreria">
+            <Principal Role="Librerias">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Administrador">
+            <Dependent Role="Administradores">
               <PropertyRef Name="idLibreria" />
             </Dependent>
           </ReferentialConstraint>
@@ -130,10 +128,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="CategoriaLibro_fk1">
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
           <End Role="CategoriaLibro" Type="Self.CategoriaLibro" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Categoria">
+            <Principal Role="Categorias">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="CategoriaLibro">
@@ -142,10 +140,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="LibroEnTransaccion_fk0">
-          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+          <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="1" />
           <End Role="LibroEnTransaccion" Type="Self.LibroEnTransaccion" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Transaccion">
+            <Principal Role="Transacciones">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="LibroEnTransaccion">
@@ -166,10 +164,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Libros_fk0">
-          <End Role="Libreria" Type="Self.Libreria" Multiplicity="1" />
+          <End Role="Librerias" Type="Self.Librerias" Multiplicity="1" />
           <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Libreria">
+            <Principal Role="Librerias">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Libros">
@@ -177,82 +175,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="LibrosEnCarro_fk0">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="LibrosEnCarro" Type="Self.LibrosEnCarro" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="LibrosEnCarro">
-              <PropertyRef Name="idUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="LibrosEnCarro_fk1">
-          <End Role="Libros" Type="Self.Libros" Multiplicity="1" />
-          <End Role="LibrosEnCarro" Type="Self.LibrosEnCarro" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Libros">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="LibrosEnCarro">
-              <PropertyRef Name="idLibro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Transaccion_fk0">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Usuario">
+            <Principal Role="Usuarios">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Transaccion">
+            <Dependent Role="Transacciones">
               <PropertyRef Name="idUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="Transaccion_fk1">
-          <End Role="Libreria" Type="Self.Libreria" Multiplicity="1" />
-          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+          <End Role="Librerias" Type="Self.Librerias" Multiplicity="1" />
+          <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Libreria">
+            <Principal Role="Librerias">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Transaccion">
+            <Dependent Role="Transacciones">
               <PropertyRef Name="idLibreria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="interlibrosModelStoreContainer">
-          <EntitySet Name="Administrador" EntityType="Self.Administrador" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="CategoriaLibro" EntityType="Self.CategoriaLibro" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Libreria" EntityType="Self.Libreria" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="LibroEnTransaccion" EntityType="Self.LibroEnTransaccion" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Libros" EntityType="Self.Libros" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="LibrosEnCarro" EntityType="Self.LibrosEnCarro" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Transaccion" EntityType="Self.Transaccion" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Administradores" EntityType="Self.Administradores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoriaLibro" EntityType="Self.CategoriaLibro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Librerias" EntityType="Self.Librerias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LibroEnCarro" EntityType="Self.LibroEnCarro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LibroEnTransaccion" EntityType="Self.LibroEnTransaccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libros" EntityType="Self.Libros" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transacciones" EntityType="Self.Transacciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="Administrador_fk0" Association="Self.Administrador_fk0">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Administrador" EntitySet="Administrador" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Administradores" EntitySet="Administradores" />
           </AssociationSet>
           <AssociationSet Name="Administrador_fk1" Association="Self.Administrador_fk1">
-            <End Role="Libreria" EntitySet="Libreria" />
-            <End Role="Administrador" EntitySet="Administrador" />
+            <End Role="Librerias" EntitySet="Librerias" />
+            <End Role="Administradores" EntitySet="Administradores" />
           </AssociationSet>
           <AssociationSet Name="CategoriaLibro_fk0" Association="Self.CategoriaLibro_fk0">
             <End Role="Libros" EntitySet="Libros" />
             <End Role="CategoriaLibro" EntitySet="CategoriaLibro" />
           </AssociationSet>
           <AssociationSet Name="CategoriaLibro_fk1" Association="Self.CategoriaLibro_fk1">
-            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Categorias" EntitySet="Categorias" />
             <End Role="CategoriaLibro" EntitySet="CategoriaLibro" />
           </AssociationSet>
           <AssociationSet Name="LibroEnTransaccion_fk0" Association="Self.LibroEnTransaccion_fk0">
-            <End Role="Transaccion" EntitySet="Transaccion" />
+            <End Role="Transacciones" EntitySet="Transacciones" />
             <End Role="LibroEnTransaccion" EntitySet="LibroEnTransaccion" />
           </AssociationSet>
           <AssociationSet Name="LibroEnTransaccion_fk1" Association="Self.LibroEnTransaccion_fk1">
@@ -260,50 +234,51 @@
             <End Role="LibroEnTransaccion" EntitySet="LibroEnTransaccion" />
           </AssociationSet>
           <AssociationSet Name="Libros_fk0" Association="Self.Libros_fk0">
-            <End Role="Libreria" EntitySet="Libreria" />
+            <End Role="Librerias" EntitySet="Librerias" />
             <End Role="Libros" EntitySet="Libros" />
-          </AssociationSet>
-          <AssociationSet Name="LibrosEnCarro_fk0" Association="Self.LibrosEnCarro_fk0">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="LibrosEnCarro" EntitySet="LibrosEnCarro" />
-          </AssociationSet>
-          <AssociationSet Name="LibrosEnCarro_fk1" Association="Self.LibrosEnCarro_fk1">
-            <End Role="Libros" EntitySet="Libros" />
-            <End Role="LibrosEnCarro" EntitySet="LibrosEnCarro" />
           </AssociationSet>
           <AssociationSet Name="Transaccion_fk0" Association="Self.Transaccion_fk0">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Transaccion" EntitySet="Transaccion" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Transacciones" EntitySet="Transacciones" />
           </AssociationSet>
           <AssociationSet Name="Transaccion_fk1" Association="Self.Transaccion_fk1">
-            <End Role="Libreria" EntitySet="Libreria" />
-            <End Role="Transaccion" EntitySet="Transaccion" />
+            <End Role="Librerias" EntitySet="Librerias" />
+            <End Role="Transacciones" EntitySet="Transacciones" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="interlibrosModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
-        <EntityType Name="Categoria">
+      <Schema Namespace="interlibrosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorias">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Libros" Relationship="Self.CategoriaLibro" FromRole="Categoria" ToRole="Libros" />
+          <NavigationProperty Name="Libros" Relationship="Self.CategoriaLibro" FromRole="Categorias" ToRole="Libros" />
         </EntityType>
-        <EntityType Name="Libreria">
+        <EntityType Name="Librerias">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Telefono" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Direccion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Ubicacion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Libros" Relationship="Self.Libros_fk0" FromRole="Libreria" ToRole="Libros" />
-          <NavigationProperty Name="Transaccion" Relationship="Self.Transaccion_fk1" FromRole="Libreria" ToRole="Transaccion" />
-          <NavigationProperty Name="Usuario" Relationship="Self.Administrador" FromRole="Libreria" ToRole="Usuario" />
+          <NavigationProperty Name="Libros" Relationship="Self.Libros_fk0" FromRole="Librerias" ToRole="Libros" />
+          <NavigationProperty Name="Transacciones" Relationship="Self.Transaccion_fk1" FromRole="Librerias" ToRole="Transacciones" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.Administradores" FromRole="Librerias" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="LibroEnCarro">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idLibro" Type="Int32" Nullable="false" />
+          <Property Name="Cantidad" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="LibroEnTransaccion">
           <Key>
@@ -312,58 +287,45 @@
           <Property Name="idTransaccion" Type="Int32" Nullable="false" />
           <Property Name="idLibro" Type="Int32" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Transaccion" Relationship="Self.LibroEnTransaccion_fk0" FromRole="LibroEnTransaccion" ToRole="Transaccion" />
+          <NavigationProperty Name="Transacciones" Relationship="Self.LibroEnTransaccion_fk0" FromRole="LibroEnTransaccion" ToRole="Transacciones" />
           <NavigationProperty Name="Libros" Relationship="Self.LibroEnTransaccion_fk1" FromRole="LibroEnTransaccion" ToRole="Libros" />
         </EntityType>
         <EntityType Name="Libros">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idLibreria" Type="Int32" Nullable="false" />
           <Property Name="Titulo" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Autor" Type="String" MaxLength="512" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Idioma" Type="Int32" Nullable="false" />
           <Property Name="Condicion" Type="Int32" Nullable="false" />
           <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="2048" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Descuento" Type="Int32" Nullable="false" />
           <Property Name="Precio" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Libreria" Relationship="Self.Libros_fk0" FromRole="Libros" ToRole="Libreria" />
+          <Property Name="ImgUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Librerias" Relationship="Self.Libros_fk0" FromRole="Libros" ToRole="Librerias" />
           <NavigationProperty Name="LibroEnTransaccion" Relationship="Self.LibroEnTransaccion_fk1" FromRole="Libros" ToRole="LibroEnTransaccion" />
-          <NavigationProperty Name="LibrosEnCarro" Relationship="Self.LibrosEnCarro_fk1" FromRole="Libros" ToRole="LibrosEnCarro" />
-          <NavigationProperty Name="Categoria" Relationship="Self.CategoriaLibro" FromRole="Libros" ToRole="Categoria" />
-          <Property Name="NombreImagen" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="ContentType" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
-          <Property Name="Imagen" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Categorias" Relationship="Self.CategoriaLibro" FromRole="Libros" ToRole="Categorias" />
         </EntityType>
-        <EntityType Name="LibrosEnCarro">
-          <Key>
-            <PropertyRef Name="idUsuario" />
-          </Key>
-          <Property Name="idUsuario" Type="Int32" Nullable="false" />
-          <Property Name="idLibro" Type="Int32" Nullable="false" />
-          <Property Name="Cantidad" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Libros" Relationship="Self.LibrosEnCarro_fk1" FromRole="LibrosEnCarro" ToRole="Libros" />
-          <NavigationProperty Name="Usuario" Relationship="Self.LibrosEnCarro_fk0" FromRole="LibrosEnCarro" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Transaccion">
+        <EntityType Name="Transacciones">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idUsuario" Type="Int32" Nullable="false" />
           <Property Name="idLibreria" Type="Int32" Nullable="false" />
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Libreria" Relationship="Self.Transaccion_fk1" FromRole="Transaccion" ToRole="Libreria" />
-          <NavigationProperty Name="LibroEnTransaccion" Relationship="Self.LibroEnTransaccion_fk0" FromRole="Transaccion" ToRole="LibroEnTransaccion" />
-          <NavigationProperty Name="Usuario" Relationship="Self.Transaccion_fk0" FromRole="Transaccion" ToRole="Usuario" />
+          <NavigationProperty Name="Librerias" Relationship="Self.Transaccion_fk1" FromRole="Transacciones" ToRole="Librerias" />
+          <NavigationProperty Name="LibroEnTransaccion" Relationship="Self.LibroEnTransaccion_fk0" FromRole="Transacciones" ToRole="LibroEnTransaccion" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.Transaccion_fk0" FromRole="Transacciones" ToRole="Usuarios" />
         </EntityType>
-        <EntityType Name="Usuario">
+        <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NombreUsuario" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Correo" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contrasena" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
@@ -372,15 +334,14 @@
           <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Telefono" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Genero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="LibrosEnCarro" Relationship="Self.LibrosEnCarro_fk0" FromRole="Usuario" ToRole="LibrosEnCarro" />
-          <NavigationProperty Name="Transaccion" Relationship="Self.Transaccion_fk0" FromRole="Usuario" ToRole="Transaccion" />
-          <NavigationProperty Name="Libreria" Relationship="Self.Administrador" FromRole="Usuario" ToRole="Libreria" />
+          <NavigationProperty Name="Transacciones" Relationship="Self.Transaccion_fk0" FromRole="Usuarios" ToRole="Transacciones" />
+          <NavigationProperty Name="Librerias" Relationship="Self.Administradores" FromRole="Usuarios" ToRole="Librerias" />
         </EntityType>
         <Association Name="Libros_fk0">
-          <End Role="Libreria" Type="Self.Libreria" Multiplicity="1" />
+          <End Role="Librerias" Type="Self.Librerias" Multiplicity="1" />
           <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Libreria">
+            <Principal Role="Librerias">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="Libros">
@@ -389,22 +350,22 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="Transaccion_fk1">
-          <End Role="Libreria" Type="Self.Libreria" Multiplicity="1" />
-          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+          <End Role="Librerias" Type="Self.Librerias" Multiplicity="1" />
+          <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Libreria">
+            <Principal Role="Librerias">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Transaccion">
+            <Dependent Role="Transacciones">
               <PropertyRef Name="idLibreria" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="LibroEnTransaccion_fk0">
-          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="1" />
+          <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="1" />
           <End Role="LibroEnTransaccion" Type="Self.LibroEnTransaccion" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Transaccion">
+            <Principal Role="Transacciones">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="LibroEnTransaccion">
@@ -424,117 +385,94 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="LibrosEnCarro_fk1">
-          <End Role="Libros" Type="Self.Libros" Multiplicity="1" />
-          <End Role="LibrosEnCarro" Type="Self.LibrosEnCarro" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Libros">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="LibrosEnCarro">
-              <PropertyRef Name="idLibro" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="LibrosEnCarro_fk0">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="LibrosEnCarro" Type="Self.LibrosEnCarro" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Usuario">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="LibrosEnCarro">
-              <PropertyRef Name="idUsuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Transaccion_fk0">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
-          <End Role="Transaccion" Type="Self.Transaccion" Multiplicity="*" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Transacciones" Type="Self.Transacciones" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Usuario">
+            <Principal Role="Usuarios">
               <PropertyRef Name="id" />
             </Principal>
-            <Dependent Role="Transaccion">
+            <Dependent Role="Transacciones">
               <PropertyRef Name="idUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Administrador">
-          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
-          <End Role="Libreria" Type="Self.Libreria" Multiplicity="0..1" />
+        <Association Name="Administradores">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <End Role="Librerias" Type="Self.Librerias" Multiplicity="0..1" />
         </Association>
         <Association Name="CategoriaLibro">
           <End Role="Libros" Type="Self.Libros" Multiplicity="*" />
-          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
         </Association>
         <EntityContainer Name="interlibrosEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
-          <EntitySet Name="Libreria" EntityType="Self.Libreria" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" />
+          <EntitySet Name="Librerias" EntityType="Self.Librerias" />
+          <EntitySet Name="LibroEnCarro" EntityType="Self.LibroEnCarro" />
           <EntitySet Name="LibroEnTransaccion" EntityType="Self.LibroEnTransaccion" />
           <EntitySet Name="Libros" EntityType="Self.Libros" />
-          <EntitySet Name="LibrosEnCarro" EntityType="Self.LibrosEnCarro" />
-          <EntitySet Name="Transaccion" EntityType="Self.Transaccion" />
-          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="Transacciones" EntityType="Self.Transacciones" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
           <AssociationSet Name="Libros_fk0" Association="Self.Libros_fk0">
-            <End Role="Libreria" EntitySet="Libreria" />
+            <End Role="Librerias" EntitySet="Librerias" />
             <End Role="Libros" EntitySet="Libros" />
           </AssociationSet>
           <AssociationSet Name="Transaccion_fk1" Association="Self.Transaccion_fk1">
-            <End Role="Libreria" EntitySet="Libreria" />
-            <End Role="Transaccion" EntitySet="Transaccion" />
+            <End Role="Librerias" EntitySet="Librerias" />
+            <End Role="Transacciones" EntitySet="Transacciones" />
           </AssociationSet>
           <AssociationSet Name="LibroEnTransaccion_fk0" Association="Self.LibroEnTransaccion_fk0">
-            <End Role="Transaccion" EntitySet="Transaccion" />
+            <End Role="Transacciones" EntitySet="Transacciones" />
             <End Role="LibroEnTransaccion" EntitySet="LibroEnTransaccion" />
           </AssociationSet>
           <AssociationSet Name="LibroEnTransaccion_fk1" Association="Self.LibroEnTransaccion_fk1">
             <End Role="Libros" EntitySet="Libros" />
             <End Role="LibroEnTransaccion" EntitySet="LibroEnTransaccion" />
           </AssociationSet>
-          <AssociationSet Name="LibrosEnCarro_fk1" Association="Self.LibrosEnCarro_fk1">
-            <End Role="Libros" EntitySet="Libros" />
-            <End Role="LibrosEnCarro" EntitySet="LibrosEnCarro" />
-          </AssociationSet>
-          <AssociationSet Name="LibrosEnCarro_fk0" Association="Self.LibrosEnCarro_fk0">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="LibrosEnCarro" EntitySet="LibrosEnCarro" />
-          </AssociationSet>
           <AssociationSet Name="Transaccion_fk0" Association="Self.Transaccion_fk0">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Transaccion" EntitySet="Transaccion" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Transacciones" EntitySet="Transacciones" />
           </AssociationSet>
-          <AssociationSet Name="Administrador" Association="Self.Administrador">
-            <End Role="Usuario" EntitySet="Usuario" />
-            <End Role="Libreria" EntitySet="Libreria" />
+          <AssociationSet Name="Administradores" Association="Self.Administradores">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Librerias" EntitySet="Librerias" />
           </AssociationSet>
           <AssociationSet Name="CategoriaLibro" Association="Self.CategoriaLibro">
             <End Role="Libros" EntitySet="Libros" />
-            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Categorias" EntitySet="Categorias" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="interlibrosModelStoreContainer" CdmEntityContainer="interlibrosEntities">
-          <EntitySetMapping Name="Categoria">
-            <EntityTypeMapping TypeName="interlibrosModel.Categoria">
-              <MappingFragment StoreEntitySet="Categoria">
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="interlibrosModel.Categorias">
+              <MappingFragment StoreEntitySet="Categorias">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Libreria">
-            <EntityTypeMapping TypeName="interlibrosModel.Libreria">
-              <MappingFragment StoreEntitySet="Libreria">
+          <EntitySetMapping Name="Librerias">
+            <EntityTypeMapping TypeName="interlibrosModel.Librerias">
+              <MappingFragment StoreEntitySet="Librerias">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="Telefono" ColumnName="Telefono" />
                 <ScalarProperty Name="Direccion" ColumnName="Direccion" />
                 <ScalarProperty Name="Ubicacion" ColumnName="Ubicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LibroEnCarro">
+            <EntityTypeMapping TypeName="interlibrosModel.LibroEnCarro">
+              <MappingFragment StoreEntitySet="LibroEnCarro">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idLibro" ColumnName="idLibro" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -550,9 +488,6 @@
           <EntitySetMapping Name="Libros">
             <EntityTypeMapping TypeName="interlibrosModel.Libros">
               <MappingFragment StoreEntitySet="Libros">
-                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
-                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
-                <ScalarProperty Name="NombreImagen" ColumnName="NombreImagen" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idLibreria" ColumnName="idLibreria" />
                 <ScalarProperty Name="Titulo" ColumnName="Titulo" />
@@ -560,24 +495,16 @@
                 <ScalarProperty Name="Idioma" ColumnName="Idioma" />
                 <ScalarProperty Name="Condicion" ColumnName="Condicion" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Descuento" ColumnName="Descuento" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="LibrosEnCarro">
-            <EntityTypeMapping TypeName="interlibrosModel.LibrosEnCarro">
-              <MappingFragment StoreEntitySet="LibrosEnCarro">
-                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
-                <ScalarProperty Name="idLibro" ColumnName="idLibro" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Transaccion">
-            <EntityTypeMapping TypeName="interlibrosModel.Transaccion">
-              <MappingFragment StoreEntitySet="Transaccion">
+          <EntitySetMapping Name="Transacciones">
+            <EntityTypeMapping TypeName="interlibrosModel.Transacciones">
+              <MappingFragment StoreEntitySet="Transacciones">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="idLibreria" ColumnName="idLibreria" />
@@ -585,9 +512,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Usuario">
-            <EntityTypeMapping TypeName="interlibrosModel.Usuario">
-              <MappingFragment StoreEntitySet="Usuario">
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="interlibrosModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
@@ -600,11 +527,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Administrador" TypeName="interlibrosModel.Administrador" StoreEntitySet="Administrador">
-            <EndProperty Name="Usuario">
+          <AssociationSetMapping Name="Administradores" TypeName="interlibrosModel.Administradores" StoreEntitySet="Administradores">
+            <EndProperty Name="Usuarios">
               <ScalarProperty Name="id" ColumnName="idUsuario" />
             </EndProperty>
-            <EndProperty Name="Libreria">
+            <EndProperty Name="Librerias">
               <ScalarProperty Name="id" ColumnName="idLibreria" />
             </EndProperty>
           </AssociationSetMapping>
@@ -612,7 +539,7 @@
             <EndProperty Name="Libros">
               <ScalarProperty Name="id" ColumnName="idLibro" />
             </EndProperty>
-            <EndProperty Name="Categoria">
+            <EndProperty Name="Categorias">
               <ScalarProperty Name="id" ColumnName="idCategoria" />
             </EndProperty>
           </AssociationSetMapping>
@@ -621,7 +548,7 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
@@ -633,10 +560,10 @@
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams />
+    <Diagrams></Diagrams>
   </Designer>
 </edmx:Edmx>

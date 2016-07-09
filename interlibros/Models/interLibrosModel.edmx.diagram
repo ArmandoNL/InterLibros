@@ -4,22 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ade787c12e174f26a25de209548f6ba4" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="interlibrosModel.Categoria" Width="1.5" PointX="7.5" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="interlibrosModel.Libreria" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="interlibrosModel.LibroEnTransaccion" Width="1.5" PointX="10.5" PointY="6.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="interlibrosModel.Libros" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="interlibrosModel.LibrosEnCarro" Width="1.5" PointX="7.5" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="interlibrosModel.Transaccion" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="interlibrosModel.Usuario" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+      <Diagram DiagramId="ea492cc1e22548ed8bff6ea7449b8c0d" Name="Diagram1">
+        <EntityTypeShape EntityType="interlibrosModel.Categorias" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="interlibrosModel.Librerias" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="interlibrosModel.LibroEnCarro" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="interlibrosModel.LibroEnTransaccion" Width="1.5" PointX="10.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="interlibrosModel.Libros" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="interlibrosModel.Transacciones" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="interlibrosModel.Usuarios" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
         <AssociationConnector Association="interlibrosModel.Libros_fk0" ManuallyRouted="false" />
         <AssociationConnector Association="interlibrosModel.Transaccion_fk1" ManuallyRouted="false" />
         <AssociationConnector Association="interlibrosModel.LibroEnTransaccion_fk0" ManuallyRouted="false" />
         <AssociationConnector Association="interlibrosModel.LibroEnTransaccion_fk1" ManuallyRouted="false" />
-        <AssociationConnector Association="interlibrosModel.LibrosEnCarro_fk1" ManuallyRouted="false" />
-        <AssociationConnector Association="interlibrosModel.LibrosEnCarro_fk0" ManuallyRouted="false" />
         <AssociationConnector Association="interlibrosModel.Transaccion_fk0" ManuallyRouted="false" />
-        <AssociationConnector Association="interlibrosModel.Administrador" ManuallyRouted="false" />
+        <AssociationConnector Association="interlibrosModel.Administradores" ManuallyRouted="false" />
         <AssociationConnector Association="interlibrosModel.CategoriaLibro" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

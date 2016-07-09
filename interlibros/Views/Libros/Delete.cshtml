@@ -1,4 +1,4 @@
-﻿@model interlibros.Libros
+﻿@model interlibros.Models.Libros
 
 @{
     ViewBag.Title = "Delete";
@@ -52,14 +52,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Descuento)
         </dt>
 
@@ -76,11 +68,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Libreria.Nombre)
+            @Html.DisplayNameFor(model => model.ImgUrl)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Libreria.Nombre)
+            @Html.DisplayFor(model => model.ImgUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Librerias.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Librerias.Nombre)
         </dd>
 
     </dl>

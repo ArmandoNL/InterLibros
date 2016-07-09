@@ -171,9 +171,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
-    <Compile Include="Models\Categoria.cs">
-      <DependentUpon>interLibrosModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibrosController.cs" />
@@ -181,6 +178,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Categorias.cs">
+      <DependentUpon>interLibrosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\interLibrosModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -196,7 +198,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>interLibrosModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Libreria.cs">
+    <Compile Include="Models\Librerias.cs">
+      <DependentUpon>interLibrosModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LibroEnCarro.cs">
       <DependentUpon>interLibrosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LibroEnTransaccion.cs">
@@ -205,20 +210,15 @@
     <Compile Include="Models\Libros.cs">
       <DependentUpon>interLibrosModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LibrosEnCarro.cs">
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Transacciones.cs">
       <DependentUpon>interLibrosModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Usuarios.cs">
+      <DependentUpon>interLibrosModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Models\Transaccion.cs">
-      <DependentUpon>interLibrosModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Usuario.cs">
-      <DependentUpon>interLibrosModel.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.css" />
@@ -305,6 +305,10 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <EntityDeploy Include="Models\interLibrosModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>interLibrosModel.Designer.cs</LastGenOutput>
@@ -312,10 +316,6 @@
     <Content Include="Models\interLibrosModel.edmx.diagram">
       <DependentUpon>interLibrosModel.edmx</DependentUpon>
     </Content>
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gmaps.js" />
@@ -369,12 +369,12 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Cuenta\IniciarSesion.cshtml" />
     <Content Include="Views\Libros\Create.cshtml" />
     <Content Include="Views\Libros\Delete.cshtml" />
     <Content Include="Views\Libros\Details.cshtml" />
     <Content Include="Views\Libros\Edit.cshtml" />
     <Content Include="Views\Libros\Index.cshtml" />
-    <Content Include="Views\Cuenta\IniciarSesion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

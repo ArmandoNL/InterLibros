@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using interlibros;
 using interlibros.Models;
 
 namespace interlibros.Controllers
@@ -17,20 +15,20 @@ namespace interlibros.Controllers
         private interlibrosEntities db = new interlibrosEntities();
 
         // GET: Libros
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var libros = db.Libros.Include(l => l.Libreria);
-            return View(await libros.ToListAsync());
+            var libros = db.Libros.Include(l => l.Librerias);
+            return View(libros.ToList());
         }
 
         // GET: Libros/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Libros libros = await db.Libros.FindAsync(id);
+            Libros libros = db.Libros.Find(id);
             if (libros == null)
             {
                 return HttpNotFound();
@@ -41,69 +39,69 @@ namespace interlibros.Controllers
         // GET: Libros/Create
         public ActionResult Create()
         {
-            ViewBag.idLibreria = new SelectList(db.Libreria, "id", "Nombre");
+            ViewBag.idLibreria = new SelectList(db.Librerias, "id", "Nombre");
             return View();
         }
 
         // POST: Libros/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id,idLibreria,Titulo,Autor,Idioma,Condicion,Cantidad,Description,Descuento,Precio")] Libros libros)
+        public ActionResult Create([Bind(Include = "id,idLibreria,Titulo,Autor,Idioma,Condicion,Cantidad,Descuento,Precio,ImgUrl,Descripcion")] Libros libros)
         {
             if (ModelState.IsValid)
             {
                 db.Libros.Add(libros);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.idLibreria = new SelectList(db.Libreria, "id", "Nombre", libros.idLibreria);
+            ViewBag.idLibreria = new SelectList(db.Librerias, "id", "Nombre", libros.idLibreria);
             return View(libros);
         }
 
         // GET: Libros/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Libros libros = await db.Libros.FindAsync(id);
+            Libros libros = db.Libros.Find(id);
             if (libros == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.idLibreria = new SelectList(db.Libreria, "id", "Nombre", libros.idLibreria);
+            ViewBag.idLibreria = new SelectList(db.Librerias, "id", "Nombre", libros.idLibreria);
             return View(libros);
         }
 
         // POST: Libros/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id,idLibreria,Titulo,Autor,Idioma,Condicion,Cantidad,Description,Descuento,Precio")] Libros libros)
+        public ActionResult Edit([Bind(Include = "id,idLibreria,Titulo,Autor,Idioma,Condicion,Cantidad,Descuento,Precio,ImgUrl,Descripcion")] Libros libros)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(libros).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.idLibreria = new SelectList(db.Libreria, "id", "Nombre", libros.idLibreria);
+            ViewBag.idLibreria = new SelectList(db.Librerias, "id", "Nombre", libros.idLibreria);
             return View(libros);
         }
 
         // GET: Libros/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Libros libros = await db.Libros.FindAsync(id);
+            Libros libros = db.Libros.Find(id);
             if (libros == null)
             {
                 return HttpNotFound();
@@ -114,11 +112,11 @@ namespace interlibros.Controllers
         // POST: Libros/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Libros libros = await db.Libros.FindAsync(id);
+            Libros libros = db.Libros.Find(id);
             db.Libros.Remove(libros);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
