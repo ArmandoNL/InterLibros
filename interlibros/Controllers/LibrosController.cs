@@ -15,6 +15,7 @@ namespace interlibros.Controllers
         private interlibrosEntities db = new interlibrosEntities();
 
         // GET: Libros
+        [Authorize]
         public ActionResult Index()
         {
             var libros = db.Libros.Include(l => l.Librerias);

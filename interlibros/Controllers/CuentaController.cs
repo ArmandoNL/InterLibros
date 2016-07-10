@@ -1,6 +1,7 @@
 ﻿using interlibros.Models;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace interlibros.Controllers
 {
@@ -25,12 +26,12 @@ namespace interlibros.Controllers
         // POST: /Cuenta/IniciarSesion
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> IniciarSesion(LoginViewModel model, string returnUrl)
+        public ActionResult IniciarSesion(LoginViewModel model, string ReturnUrl)
         {
-            if (!ModelState.IsValid)
+            /*if (!ModelState.IsValid)
             {
                 return View(model);
-            }
+            }*/
             /*
             var result = SignInStatus.Success;
             switch (result)
@@ -46,6 +47,17 @@ namespace interlibros.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }*/
+            FormsAuthentication.SetAuthCookie("user.Username", true);
+            if (Url.IsLocalUrl(ReturnUrl))
+            {
+                return Redirect(ReturnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult CerrarSesion()
+        {
+            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
 
