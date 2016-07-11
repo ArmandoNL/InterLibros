@@ -35,7 +35,12 @@ namespace interlibros.Controllers
         {
             return View(db.Usuarios.ToList());
         }
-        
+
+        public ActionResult Carrito()
+        {
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
