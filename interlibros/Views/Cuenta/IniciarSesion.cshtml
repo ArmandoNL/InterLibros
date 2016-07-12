@@ -16,7 +16,7 @@
                 @using (Html.BeginForm("IniciarSesion", "Cuenta", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
                 {
                     @Html.TextBoxFor(m => m.Username, new { @placeholder = "Nombre de usuario o correo" })
-                    @Html.TextBoxFor(m => m.Password, new { @placeholder = "Contraseña" })
+                    @Html.PasswordFor(m => m.Password, new { @placeholder = "Contraseña" })
                     <span>
                             @Html.CheckBoxFor(m => m.RememberMe)
                             Dejar sesión abierta

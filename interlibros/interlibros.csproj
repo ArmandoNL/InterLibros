@@ -207,6 +207,7 @@
       <DependentUpon>interLibrosModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\MainPageViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\Transacciones.cs">
       <DependentUpon>interLibrosModel.tt</DependentUpon>
@@ -360,6 +361,8 @@
     <Content Include="Views\Librerias\Details.cshtml" />
     <Content Include="Views\Librerias\Index.cshtml" />
     <Content Include="Views\Usuarios\Carrito.cshtml" />
+    <Content Include="Views\Cuenta\Perfil.cshtml" />
+    <Content Include="Views\Cuenta\Carrito.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

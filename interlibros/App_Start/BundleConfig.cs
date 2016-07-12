@@ -22,12 +22,6 @@ namespace interlibros
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/others").Include(
-                      "~/Scripts/jquery.scrollUp.min.js.js",
-                      "~/Scripts/price-range.js",
-                      "~/Scripts//jquery.prettyPhoto.js",
-                      "~/Scripts/main.js"));
-
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/font-awesome.css",

@@ -70,8 +70,8 @@
                                 @if (Request.IsAuthenticated)
                                 {
                                     <li><a href="#">Bienvenido Emmanuel</a></li>
-                                    <li><a href="#"><i class="fa fa-user"></i> Cuenta</a></li>
-                                    <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Carrito</a></li>
+                                    <li><a href="/Cuenta/Perfil"><i class="fa fa-user"></i> Cuenta</a></li>
+                                    <li><a href="/Cuenta/Carrito"><i class="fa fa-shopping-cart"></i> Carrito</a></li>
                                     <li><a href="/Cuenta/CerrarSesion"><i class="fa fa-sign-out"></i> Cerrar Sesión</a></li>
                                 }
                                 else
@@ -224,7 +224,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/others")
     @RenderSection("scripts", required: false)
 </body>
 </html>

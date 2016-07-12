@@ -6,9 +6,14 @@
 
 <h2>Details</h2>
 
+
+<div id="map_canvas" style="width:500px; height:500px"></div>
+
+
 <div>
     <h4>Librerias</h4>
     <hr />
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -48,3 +53,40 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section Scripts
+{
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAjttM9UEDA1aCz0BdGohxHyNkVfgwuP4"
+        type="text/javascript"></script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        var position = new google.maps.LatLng(-34.397, 150.644);
+        var myOptions = {
+            zoom: 10,
+            center: position,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(
+            document.getElementById("map_canvas"),
+            myOptions);
+
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: "This is the place."
+        });
+
+        var contentString = 'Hello <strong>World</strong>!';
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.open(map, marker);
+        });
+    });
+    
+
+</script>
+}

@@ -3,6 +3,7 @@ using interlibros.Models;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Net;
 
 namespace interlibros.Controllers
 {
@@ -41,14 +42,7 @@ namespace interlibros.Controllers
                 // con esto podemos saber el usuario en otros lugares
                 Session["Username"] = model.Username;
                 FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
-                if (Url.IsLocalUrl(returnUrl))
-                {
-                    return Redirect(returnUrl);
-                }
-                else
-                {
-                    RedirectToAction("Index", "Home");
-                }
+                RedirectToAction("Index", "Home");
             }
             ModelState.Remove("Password");
             return View();
@@ -87,6 +81,26 @@ namespace interlibros.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Perfil()
+        {
+            if (Session["Username"] == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            string username = Session["Username"].ToString();
+            Usuarios usuarios = db.Usuarios.FirstOrDefault(a => a.NombreUsuario.Equals(username));
+            if (usuarios == null)
+            {
+                return HttpNotFound();
+            }
+            return View(usuarios);
+        }
+
+        public ActionResult Carrito()
+        {
+            return View();
         }
 
 	}
