@@ -168,7 +168,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ContactenosController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibreriasController.cs" />
@@ -316,6 +315,8 @@
     <Content Include="Models\interLibrosModel.edmx.diagram">
       <DependentUpon>interLibrosModel.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\Interlibros - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Interlibros - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\contact.js" />
     <Content Include="Scripts\gmaps.js" />
@@ -346,8 +347,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -365,7 +364,7 @@
     <Content Include="Views\Usuarios\Carrito.cshtml" />
     <Content Include="Views\Cuenta\Perfil.cshtml" />
     <Content Include="Views\Cuenta\Carrito.cshtml" />
-    <Content Include="Views\Contactenos\Index.cshtml" />
+    <Content Include="Views\Home\Contactenos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

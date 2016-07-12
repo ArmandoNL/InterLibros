@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ea492cc1e22548ed8bff6ea7449b8c0d" Name="Diagram1" ZoomLevel="103">
-        <EntityTypeShape EntityType="interlibrosModel.Libros" Width="1.5" PointX="5.25" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="interlibrosModel.Transacciones" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="ea492cc1e22548ed8bff6ea7449b8c0d" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="interlibrosModel.Libros" Width="1.5" PointX="5.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="interlibrosModel.Transacciones" Width="1.5" PointX="1.75" PointY="0.5" IsExpanded="true" />
         <EntityTypeShape EntityType="interlibrosModel.Usuarios" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
         <AssociationConnector Association="interlibrosModel.Transaccion_fk0" ManuallyRouted="false" />
         <EntityTypeShape EntityType="interlibrosModel.Librerias" Width="1.5" PointX="3" PointY="3.625" />
         <AssociationConnector Association="interlibrosModel.Libros_fk0" />
         <AssociationConnector Association="interlibrosModel.Transaccion_fk1" />
         <AssociationConnector Association="interlibrosModel.Administradores" />
-        <EntityTypeShape EntityType="interlibrosModel.Categorias" Width="1.5" PointX="7.5" PointY="4.25" />
+        <EntityTypeShape EntityType="interlibrosModel.Categorias" Width="1.5" PointX="7.875" PointY="3.625" />
         <AssociationConnector Association="interlibrosModel.CategoriaLibro" />
-        <EntityTypeShape EntityType="interlibrosModel.LibroEnCarro" Width="1.5" PointX="7.5" PointY="7" />
+        <EntityTypeShape EntityType="interlibrosModel.LibroEnCarro" Width="1.5" PointX="0.75" PointY="7.5" />
         <AssociationConnector Association="interlibrosModel.FK_carro_libro" />
         <AssociationConnector Association="interlibrosModel.FK_carro_usuario" />
-        <EntityTypeShape EntityType="interlibrosModel.LibroEnTransaccion" Width="1.5" PointX="10.5" PointY="2.75" />
+        <EntityTypeShape EntityType="interlibrosModel.LibroEnTransaccion" Width="1.5" PointX="4.125" PointY="0.5" />
         <AssociationConnector Association="interlibrosModel.LibroEnTransaccion_fk0" />
         <AssociationConnector Association="interlibrosModel.LibroEnTransaccion_fk1" />
       </Diagram>
