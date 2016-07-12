@@ -28,11 +28,13 @@ namespace interlibros.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Librerias librerias = db.Librerias.Find(id);
+            var l = db.Libros.Where(x => x.Librerias.id == id);
             if (librerias == null)
             {
                 return HttpNotFound();
             }
-            return View(librerias);
+            var vM = new LibreriaDetalleViewModel { libreria = librerias, libros = l };          
+            return View(vM);
         }
 
         protected override void Dispose(bool disposing)

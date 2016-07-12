@@ -25,12 +25,12 @@ namespace interlibros.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Categorias> Categorias { get; set; }
-        public virtual DbSet<Librerias> Librerias { get; set; }
-        public virtual DbSet<LibroEnCarro> LibroEnCarro { get; set; }
-        public virtual DbSet<LibroEnTransaccion> LibroEnTransaccion { get; set; }
         public virtual DbSet<Libros> Libros { get; set; }
         public virtual DbSet<Transacciones> Transacciones { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Librerias> Librerias { get; set; }
+        public virtual DbSet<Categorias> Categorias { get; set; }
+        public virtual DbSet<LibroEnCarro> LibroEnCarro { get; set; }
+        public virtual DbSet<LibroEnTransaccion> LibroEnTransaccion { get; set; }
     }
 }

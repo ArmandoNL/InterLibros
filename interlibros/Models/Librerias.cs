@@ -26,7 +26,8 @@ namespace interlibros.Models
         public string Nombre { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }
-        public string Ubicacion { get; set; }
+        public string Latitud { get; set; }
+        public string Longitud { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Libros> Libros { get; set; }

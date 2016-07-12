@@ -17,6 +17,8 @@ namespace interlibros.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Libros()
         {
+            this.Categorias = new HashSet<Categorias>();
+            this.LibroEnCarro = new HashSet<LibroEnCarro>();
             this.LibroEnTransaccion = new HashSet<LibroEnTransaccion>();
         }
     
@@ -34,7 +36,10 @@ namespace interlibros.Models
     
         public virtual Librerias Librerias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Categorias> Categorias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LibroEnCarro> LibroEnCarro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LibroEnTransaccion> LibroEnTransaccion { get; set; }
-        public virtual Categorias Categorias { get; set; }
     }
 }

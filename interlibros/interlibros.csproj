@@ -168,6 +168,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ContactenosController.cs" />
     <Compile Include="Controllers\CuentaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibreriasController.cs" />
@@ -194,6 +195,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>interLibrosModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LibreriaDetalleViewModel.cs" />
     <Compile Include="Models\Librerias.cs">
       <DependentUpon>interLibrosModel.tt</DependentUpon>
     </Compile>
@@ -363,6 +365,7 @@
     <Content Include="Views\Usuarios\Carrito.cshtml" />
     <Content Include="Views\Cuenta\Perfil.cshtml" />
     <Content Include="Views\Cuenta\Carrito.cshtml" />
+    <Content Include="Views\Contactenos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

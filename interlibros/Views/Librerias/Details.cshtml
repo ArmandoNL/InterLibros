@@ -1,58 +1,94 @@
-﻿@model interlibros.Models.Librerias
+﻿@model interlibros.Models.LibreriaDetalleViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.libreria.Nombre)</h2>
+<hr />
 
+<div class="row">
+    <div class="col-lg-5" style="margin-bottom: 40px;">
+        <h3>Ubicación:</h3>
+        <div id="map_canvas" style="width:400px; height:400px"></div>
+    </div>
+    <div class="col-lg-5">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="font-size:16px;">Información:</div>
+            <div class="panel-body" style="font-size:16px;">
+                <p><strong>Teléfono:</strong> @Html.DisplayFor(model => model.libreria.Telefono)</p>
+                <p><strong>Dirección:</strong> @Html.DisplayFor(model => model.libreria.Direccion)</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading" style="font-size:16px;">Administradores:</div>
+            <div class="panel-body" style="font-size:16px;">
+                @foreach (var a in Model.libreria.Usuarios)
+                {
+                    <p><strong>Nombre:</strong> @a.Nombre @a.Apellidos</p>
+                    <p><strong>Correo electrónico:</strong> <a href="mailto:@a.Correo">@a.Correo</a></p>
+                    <hr />
+                }
 
-<div id="map_canvas" style="width:500px; height:500px"></div>
+            </div>
+        </div>
 
-
-<div>
-    <h4>Librerias</h4>
-    <hr />
-
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Telefono)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Direccion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Ubicacion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Ubicacion)
-        </dd>
-
-    </dl>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="recommended_items">
+            <!--recommended_items-->
+            <h2 class="title text-center">Libros Destacados</h2>
+            <div id="recommended-item-carousel" class="carousel slide" >
+                <div class="carousel-inner">
+                    <div class="item active">
+                        @for (var i = 0; i < 3; i++)
+                        {
+                            if (Model.libros.Count() > i)
+                            {
+                                <div class="col-sm-4">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="@Model.libros.ElementAt(i).ImgUrl" alt="" />
+                                                <h2>₡@Model.libros.ElementAt(i).Precio</h2>
+                                                <p>@Model.libros.ElementAt(i).Titulo</p>
+                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Añadir al carrito</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    @*@for (var i = 3; i < Model.libros.Count(); i++)
+                    {
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <img src="@Model.libros.ElementAt(i).ImgUrl" alt="" />
+                                        <h2>₡@Model.libros.ElementAt(i).Precio</h2>
+                                        <p>@Model.libros.ElementAt(i).Titulo</p>
+                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Añadir al carrito</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }*@
+                </div>
+                @*<a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>*@
+            </div>
+        </div><!--/recommended_items-->
+
+    </div>
+</div>
 
 @section Scripts
 {
@@ -61,9 +97,9 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function ($) {
-        var position = new google.maps.LatLng(-34.397, 150.644);
+        var position = new google.maps.LatLng('@Html.Raw(Model.libreria.Latitud)', '@Html.Raw(Model.libreria.Longitud)');
         var myOptions = {
-            zoom: 10,
+            zoom: 18,
             center: position,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
@@ -74,10 +110,10 @@
         var marker = new google.maps.Marker({
             position: position,
             map: map,
-            title: "This is the place."
+            title: "Acá está la librería."
         });
 
-        var contentString = 'Hello <strong>World</strong>!';
+        var contentString = '@Html.Raw(Model.libreria.Nombre)';
         var infowindow = new google.maps.InfoWindow({
             content: contentString
         });
@@ -86,7 +122,7 @@
             infowindow.open(map, marker);
         });
     });
-    
+
 
 </script>
 }

@@ -14,8 +14,12 @@ namespace interlibros.Models
     
     public partial class LibroEnCarro
     {
+        public int id { get; set; }
         public int idUsuario { get; set; }
         public int idLibro { get; set; }
         public int Cantidad { get; set; }
+    
+        public virtual Libros Libros { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

@@ -41,9 +41,11 @@ namespace interlibros.Controllers
             {
                 // con esto podemos saber el usuario en otros lugares
                 Session["Username"] = model.Username;
+                Session["Name"] = user.Nombre;
                 FormsAuthentication.SetAuthCookie(model.Username, model.RememberMe);
-                RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
             }
+            // todo mensaje error
             ModelState.Remove("Password");
             return View();
         }
@@ -100,7 +102,14 @@ namespace interlibros.Controllers
 
         public ActionResult Carrito()
         {
-            return View();
+            if (Session["Username"] == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            string username = Session["Username"].ToString();
+            Usuarios usuarios = db.Usuarios.FirstOrDefault(a => a.NombreUsuario.Equals(username));
+            var libros = usuarios.LibroEnCarro;
+            return View(libros);
         }
 
 	}

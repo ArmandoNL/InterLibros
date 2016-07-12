@@ -14,13 +14,20 @@ namespace interlibros.Models
     
     public partial class Transacciones
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Transacciones()
+        {
+            this.LibroEnTransaccion = new HashSet<LibroEnTransaccion>();
+        }
+    
         public int id { get; set; }
         public int idUsuario { get; set; }
         public int idLibreria { get; set; }
         public System.DateTime Fecha { get; set; }
     
-        public virtual Librerias Librerias { get; set; }
-        public virtual LibroEnTransaccion LibroEnTransaccion { get; set; }
         public virtual Usuarios Usuarios { get; set; }
+        public virtual Librerias Librerias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LibroEnTransaccion> LibroEnTransaccion { get; set; }
     }
 }

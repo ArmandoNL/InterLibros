@@ -18,6 +18,7 @@ namespace interlibros.Models
         public Usuarios()
         {
             this.Transacciones = new HashSet<Transacciones>();
+            this.LibroEnCarro = new HashSet<LibroEnCarro>();
         }
     
         public int id { get; set; }
@@ -33,5 +34,7 @@ namespace interlibros.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transacciones> Transacciones { get; set; }
         public virtual Librerias Librerias { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LibroEnCarro> LibroEnCarro { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace interlibros.Models
         public int idTransaccion { get; set; }
         public int idLibro { get; set; }
         public int Cantidad { get; set; }
+        public int id { get; set; }
     
         public virtual Transacciones Transacciones { get; set; }
         public virtual Libros Libros { get; set; }
